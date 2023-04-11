@@ -4,28 +4,35 @@ public class FollowObject : MonoBehaviour
 {
     public Transform objectToFollow;
     public float followSpeed = 5f;
-
+    public float followDistance = 3f;
+    private SpriteRenderer sr;
+    [SerializeField] private bool facingRight = true;
     private Vector3 Diff;
-    private bool facingRight = true; 
 
     void Start()
     {
         Diff = transform.position - objectToFollow.position;
+        transform.position = objectToFollow.position;
+        sr = GetComponent<SpriteRenderer>();
     }
 
-    void LateUpdate()
+    void Update()
     {
-        Vector3 targetPosition = objectToFollow.position + Diff;
-
-        transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
-
-        if (transform.position.x < objectToFollow.position.x && !facingRight)
+        float distance = Vector2.Distance(transform.position, objectToFollow.position);
+        if (distance > followDistance)
         {
-            Flip();
-        }
-        else if (transform.position.x > objectToFollow.position.x && facingRight)
-        {
-            Flip();
+            Vector3 targetPosition = objectToFollow.position + Diff;
+
+            transform.position = Vector2.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+
+            if (objectToFollow.position.x < transform.position.x && !facingRight)
+            {
+                Flip();
+            }
+            else if (objectToFollow.position.x > transform.position.x && facingRight)
+            {
+                Flip();
+            }
         }
     }
 
