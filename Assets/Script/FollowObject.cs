@@ -25,6 +25,7 @@ public class FollowObject : MonoBehaviour
 
             transform.position = Vector2.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
 
+
             if (objectToFollow.position.x < transform.position.x && !facingRight)
             {
                 Flip();

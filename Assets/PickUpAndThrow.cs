@@ -8,6 +8,8 @@ public class PickUpAndThrow : MonoBehaviour
     private bool isPickedUp = false; 
     private Rigidbody2D rb2d;
     public Transform grabCheck;
+    public LayerMask GrabLayer; // couche du sol
+    private bool isPick;
 
     void Start()
     {
@@ -16,6 +18,7 @@ public class PickUpAndThrow : MonoBehaviour
 
     void Update()
     {
+        isPick = Physics2D.OverlapCircle(grabCheck.position, 0.2f, GrabLayer);
         if (Input.GetKeyDown(KeyCode.E) && !isPickedUp)
         {
             PickUp();
@@ -30,7 +33,7 @@ public class PickUpAndThrow : MonoBehaviour
     {
         rb2d.isKinematic = true; 
         transform.parent = grabCheck.transform; 
-        transform.localPosition = new Vector3(0.5f, 0.5f, 1f); 
+        transform.localPosition = new Vector2(0.5f, 0.5f); 
         isPickedUp = true;
     }
 

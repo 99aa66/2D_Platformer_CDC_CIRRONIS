@@ -20,21 +20,15 @@ public class Player_Commande : MonoBehaviour
         
     }
 
-    void Update()
+    private void Update()
     {
-        // vérifie si le joueur touche le sol
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-
-        // déplacement horizontal
         float moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-
         // Turn
         if (moveInput != 0)
         {
             if (moveInput > 0)
             {
-                transform.localScale = new Vector2(1,1); // tourne le personnage à droite
+                transform.localScale = new Vector2(1, 1); // tourne le personnage à droite
                 //sr.flipX = false;
                 //transform.Rotate(0f, 180f, 0f);
             }
@@ -45,12 +39,23 @@ public class Player_Commande : MonoBehaviour
                 //transform.Rotate(0f, 0f, 0f);
             }
         }
-        
+
 
         // saut
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+    }
+    void FixedUpdate()
+    {
+        // vérifie si le joueur touche le sol
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+
+        // déplacement horizontal
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+
+        
     }
 }
