@@ -13,6 +13,7 @@ public class PickUpAndThrow : MonoBehaviour
     public Transform groundCheck; // objet qui vérifie si le joueur touche le sol
 
     private bool isPick;
+    private bool reset;
     private Follow Follow;
     [SerializeField] private bool isGrounded = false;
     void Start()
@@ -27,26 +28,37 @@ public class PickUpAndThrow : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G) && !isPickedUp)
         {
             PickUp();
+            Follow.enabled = false;
+            rb2d.gravityScale = 0;
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0) && isPickedUp)
         {
             Throw(); 
         }
-        else
+        else if (reset== true)
         {
+            Debug.Log("beh");
             rb2d.gravityScale = 1;
             if (isGrounded == true)
             {
                 Follow.enabled = true;
                 transform.parent = null;
             }
+            reset = false;
+        }
+        if (isGrounded) 
+        {
+            reset= true;
+        }
+        else
+        {
+            reset= false;
         }
     }
 
     void PickUp()
     {
-        rb2d.gravityScale = 0;
-        Follow.enabled = false;
+
         transform.parent = grabCheck.transform; 
         transform.localPosition = new Vector2(0.5f, 0.5f); 
         isPickedUp = true;
@@ -63,6 +75,6 @@ public class PickUpAndThrow : MonoBehaviour
     void FixedUpdate()
     {
         // vérifie si le joueur touche le sol
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, GrabLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.05f , GrabLayer);
     }
 }
