@@ -11,13 +11,13 @@ public class FollowObject : MonoBehaviour
 
     void Start()
     {
-        Diff = transform.position - objectToFollow.position;
         transform.position = objectToFollow.position;
         sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        Diff = objectToFollow.position - transform.position;
         float distance = Vector2.Distance(transform.position, objectToFollow.position);
         if (distance > followDistance)
         {

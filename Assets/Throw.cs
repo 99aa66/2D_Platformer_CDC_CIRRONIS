@@ -52,7 +52,9 @@ public class Throw : MonoBehaviour
         float Vy = Mathf.Sqrt(projectileVelocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
 
         // Lancer le compagnon en lui appliquant une force initiale
-        rb.velocity = new Vector2(transform.forward * Vx , Vector2.up * Vy);
+
+
+        //rb.velocity = new Vector2(transform.forward * Vx , Vector2.up * Vy);
     }
 
     public void SetTarget(Transform target)
