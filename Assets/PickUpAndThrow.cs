@@ -10,7 +10,7 @@ public class PickUpAndThrow : MonoBehaviour
     public Transform grabCheck;
     public LayerMask GrabLayer; // couche du sol
     private bool isPick;
-
+    private FollowObject Follow;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -19,7 +19,7 @@ public class PickUpAndThrow : MonoBehaviour
     void Update()
     {
         isPick = Physics2D.OverlapCircle(grabCheck.position, 0.2f, GrabLayer);
-        if (Input.GetKeyDown(KeyCode.E) && !isPickedUp)
+        if (Input.GetKeyDown(KeyCode.G) && !isPickedUp)
         {
             PickUp();
         }
@@ -31,19 +31,23 @@ public class PickUpAndThrow : MonoBehaviour
 
     void PickUp()
     {
-        rb2d.isKinematic = true; 
+        rb2d.isKinematic = true;
+        //rb2d.gravityScale = 0;
+        Follow = gameObject.GetComponent<FollowObject>();
+        Follow.enabled = false;
         transform.parent = grabCheck.transform; 
         transform.localPosition = new Vector2(0.5f, 0.5f); 
         isPickedUp = true;
+
     }
 
     void Throw()
     {
         rb2d.isKinematic = false;
-        transform.parent = null;
-        
         rb2d.AddForce(grabCheck.transform.forward * throwForce, ForceMode2D.Impulse);
-        rb2d.AddForce(grabCheck.transform.up * throwForce, ForceMode2D.Impulse);
+        //rb2d.AddForce(grabCheck.transform.up * throwForce, ForceMode2D.Impulse);
         isPickedUp = false;
     }
+
+
 }
