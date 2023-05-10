@@ -23,7 +23,7 @@ public class Throw : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && !isBeingThrown)
+        if (Input.GetKeyDown(KeyCode.G) && !isBeingThrown)
         {
             LaunchProjectile();
         }
@@ -51,9 +51,7 @@ public class Throw : MonoBehaviour
         float Vx = Mathf.Sqrt(projectileVelocity) * Mathf.Cos(firingAngle * Mathf.Deg2Rad);
         float Vy = Mathf.Sqrt(projectileVelocity) * Mathf.Sin(firingAngle * Mathf.Deg2Rad);
 
-        // Lancer le compagnon en lui appliquant une force initiale
-
-
+        // Lancer le compagnon en lui appliquant une force initial
         //rb.velocity = new Vector2(transform.forward * Vx , Vector2.up * Vy);
     }
 

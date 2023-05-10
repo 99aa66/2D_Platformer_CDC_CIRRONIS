@@ -10,7 +10,7 @@ public class PickUpAndThrow : MonoBehaviour
     private Rigidbody2D rb2d;
     public Transform grabCheck;
     public LayerMask GrabLayer; // couche du sol
-    public Transform groundCheck; // objet qui vérifie si le joueur touche le sol
+    public Transform groundCheck;
 
     private bool isPick;
     private bool reset;
@@ -30,11 +30,14 @@ public class PickUpAndThrow : MonoBehaviour
             PickUp();
             Follow.enabled = false;
             rb2d.gravityScale = 0;
+            reset = false;
         }
+
         else if (Input.GetKeyDown(KeyCode.Mouse0) && isPickedUp)
         {
             Throw(); 
         }
+
         else if (reset== true)
         {
             Debug.Log("beh");
@@ -45,14 +48,6 @@ public class PickUpAndThrow : MonoBehaviour
                 transform.parent = null;
             }
             reset = false;
-        }
-        if (isGrounded) 
-        {
-            reset= true;
-        }
-        else
-        {
-            reset= false;
         }
     }
 
@@ -67,14 +62,21 @@ public class PickUpAndThrow : MonoBehaviour
 
     void Throw()
     {
+
         transform.parent = null;
         rb2d.velocity = transform.right * throwForce;
         //rb2d.AddForce(grabCheck.transform.up * throwForce, ForceMode2D.Impulse);
         isPickedUp = false;
+
     }
+
     void FixedUpdate()
     {
-        // vérifie si le joueur touche le sol
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.05f , GrabLayer);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 }
