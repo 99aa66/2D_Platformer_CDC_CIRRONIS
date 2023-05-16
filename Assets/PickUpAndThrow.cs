@@ -6,7 +6,7 @@ using UnityEngine;
 public class PickUpAndThrow : MonoBehaviour
 {
     public float throwForce = 10f;
-    private bool isPickedUp = false; 
+    private bool isprojectil = false; 
     private Rigidbody2D rb2d;
     public Transform grabCheck;
     public LayerMask GrabLayer; // couche du sol
@@ -23,9 +23,8 @@ public class PickUpAndThrow : MonoBehaviour
     }
 
     void Update()
-    {
-        isPick = Physics2D.OverlapCircle(grabCheck.position, 0.2f, GrabLayer);
-        if (Input.GetKeyDown(KeyCode.G) && !isPickedUp)
+    { 
+        if (Input.GetKeyDown(KeyCode.G) && !isprojectil)
         {
             PickUp();
             Follow.enabled = false;
@@ -33,7 +32,7 @@ public class PickUpAndThrow : MonoBehaviour
             reset = false;
         }
 
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && isPickedUp)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && isprojectil)
         {
             Throw(); 
         }
@@ -44,30 +43,34 @@ public class PickUpAndThrow : MonoBehaviour
             rb2d.gravityScale = 1;
             if (isGrounded == true)
             {
-                Follow.enabled = true;
                 transform.parent = null;
             }
             reset = false;
         }
-    }
 
+        if (isPick == true)
+        {
+            PickedUp();
+        }
+    }
+    void PickedUp()
+    {
+        transform.position = grabCheck.transform.position;
+    }
     void PickUp()
     {
-
-        transform.parent = grabCheck.transform; 
-        transform.localPosition = new Vector2(0.5f, 0.5f); 
-        isPickedUp = true;
+        isprojectil = true;
+        Follow.enabled = false;
+        isPick = true;
 
     }
 
     void Throw()
     {
-
-        transform.parent = null;
+        Debug.Log("throw");
+        isPick = false;
         rb2d.velocity = transform.right * throwForce;
         //rb2d.AddForce(grabCheck.transform.up * throwForce, ForceMode2D.Impulse);
-        isPickedUp = false;
-
     }
 
     void FixedUpdate()
@@ -75,8 +78,10 @@ public class PickUpAndThrow : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.05f , GrabLayer);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collider other)
     {
-        
+
+        Follow.enabled = true;
+        isprojectil = false;
     }
 }
