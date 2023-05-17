@@ -2,7 +2,7 @@
     "name": "Player_Move",
     "maps": [
         {
-            "name": "Gameplay",
+            "name": "Tartine",
             "id": "e107fc81-2f4c-4f53-b23f-ce2e27ad8b70",
             "actions": [
                 {
@@ -136,6 +136,151 @@
                 {
                     "name": "",
                     "id": "d6f77a41-c7f1-4e51-836f-45913428c3f2",
+                    "path": "<Keyboard>/#(X)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Confiture",
+            "id": "a19aa80e-50e9-4ee0-8ea5-6b0e89a1f412",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "b16f4609-4613-460b-afea-6488820db3f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "a86e3872-bbf4-432d-89fa-7d758fcd0277",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Switch",
+                    "type": "Button",
+                    "id": "7f3f02e4-71d0-4eb7-a9af-fad8670d31eb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "02f742b3-2449-44fb-8586-571bf820748d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "c7c6d60c-91a4-4edf-8807-cc0a0d8dcce3",
+                    "path": "<Keyboard>/#(Q)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "0703c26f-bb92-49f9-b4a4-a48c7ef27526",
+                    "path": "<Keyboard>/#(D)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "bbadb5c0-575d-44f1-82e2-ad3535ea219f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c82301bb-b043-4948-87bf-3426ac76cfa2",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "3d062b47-f2e2-4e2f-8f2a-079ebae926c2",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0f2b2601-249f-48c9-9f50-c50d2782c69a",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea032979-c8c1-4434-b8a6-ab0207b6fa2b",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b2413db-43af-43d9-9ad6-56a4734735ac",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Switch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88baa00d-0b8a-449f-93ce-5832f42a1142",
                     "path": "<Keyboard>/#(X)",
                     "interactions": "",
                     "processors": "",
