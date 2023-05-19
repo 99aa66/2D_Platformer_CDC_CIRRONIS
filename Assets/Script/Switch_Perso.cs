@@ -25,6 +25,7 @@ public class Switch_Perso : MonoBehaviour
             FlecheConfi.SetActive(false);
             Tartine.tag = "Player";
             Confiture.tag = "Switch";
+            Confiture.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Confiture.GetComponent<Follow>().enabled = true;
             Confiture.GetComponent<PickUpAndThrow>().enabled = true;
             Confiture.GetComponent<Confiture_Mov>().enabled = false;

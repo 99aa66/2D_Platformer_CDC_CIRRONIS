@@ -16,6 +16,21 @@ public class PickUpAndThrow : MonoBehaviour
     private bool reset;
     private Follow Follow;
     [SerializeField] private bool isGrounded = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -28,7 +43,6 @@ public class PickUpAndThrow : MonoBehaviour
         {
             PickUp();
             Follow.enabled = false;
-            rb2d.gravityScale = 0;
             reset = false;
         }
 
@@ -69,19 +83,17 @@ public class PickUpAndThrow : MonoBehaviour
     {
         Debug.Log("throw");
         isPick = false;
-        rb2d.velocity = transform.right * throwForce;
-        //rb2d.AddForce(grabCheck.transform.up * throwForce, ForceMode2D.Impulse);
+        //rb2d.velocity = transform.right * throwForce;
+        rb2d.AddForce(grabCheck.transform.up * throwForce, ForceMode2D.Impulse);
     }
 
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.05f , GrabLayer);
-    }
-
-    private void OnCollisionEnter(Collider other)
-    {
-
-        Follow.enabled = true;
-        isprojectil = false;
+        if (isGrounded)
+        {
+            Follow.enabled = true;
+            isprojectil = false;
+        }
     }
 }

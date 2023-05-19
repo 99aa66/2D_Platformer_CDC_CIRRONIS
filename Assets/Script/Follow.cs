@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Follow : MonoBehaviour
 {
+    public GameObject lance;
     public Transform objectToFollow;
     public float followSpeed = 5f;
     public float followDistance = 3f;
@@ -20,16 +21,15 @@ public class Follow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 heading = objectToFollow.transform.position - transform.position;
-        heading.y = 0;
-        var distance = heading.magnitude;
-        var direction = heading.normalized;
-        
-        if (distance>0.3f)
+        if (lance.GetComponent<Lanc_Confiture>().isPick == true)
         {
-            transform.Translate(direction * followSpeed * Time.deltaTime);
+            Move();
+            Flip();
         }
+    }
 
+    void Flip()
+    {
         if (objectToFollow.position.x < transform.position.x)
         {
             sr.flipX = true;
@@ -37,6 +37,20 @@ public class Follow : MonoBehaviour
         else if (objectToFollow.position.x > transform.position.x)
         {
             sr.flipX = false;
+        }
+    }
+
+    void Move()
+    {
+        Vector3 heading = objectToFollow.transform.position - transform.position;
+        heading.y = 0;
+        var distance = heading.magnitude;
+        var direction = heading.normalized;
+
+        if (distance > 0.3f)
+        {
+            Debug.Log("avance");
+            transform.Translate(direction * followSpeed * Time.deltaTime);
         }
     }
 }
