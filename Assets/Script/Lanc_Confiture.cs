@@ -74,7 +74,7 @@ public class Lanc_Confiture : MonoBehaviour
 
         if (isGrounded)
         {
-            Follow.enabled = true;
+            //Follow.enabled = true;
         }
     }
 

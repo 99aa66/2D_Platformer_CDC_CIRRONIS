@@ -21,7 +21,7 @@ public class Follow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (lance.GetComponent<Lanc_Confiture>().isPick == true)
+        if (lance.GetComponent<Lanc_Confiture>().isPick == false)
         {
             Move();
             Flip();

@@ -11,6 +11,7 @@ public class Player_Commande : MonoBehaviour
     public Transform groundCheck; // objet qui vérifie si le joueur touche le sol
     public LayerMask groundLayer; // couche du sol
 
+    public Animator animator;
     public SpriteRenderer sr;
     private Rigidbody2D rb;
     public bool isGrounded = false;
@@ -26,6 +27,9 @@ public class Player_Commande : MonoBehaviour
     {
         // vérifie si le joueur touche le sol
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+
+        float Move = _input * moveSpeed;
+        animator.SetFloat("Speed", Mathf.Abs(Move));
 
         // déplacement horizontal
         rb.velocity = new Vector2(_input * moveSpeed, rb.velocity.y);

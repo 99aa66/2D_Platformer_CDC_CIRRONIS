@@ -26,7 +26,7 @@ public class Switch_Confiture : MonoBehaviour
             Tartine.tag = "Switch";
             Confiture.tag = "Player";
             Confiture.GetComponent<Follow>().enabled = false;
-            Confiture.GetComponent<PickUpAndThrow>().enabled = false;
+            //Confiture.GetComponent<PickUpAndThrow>().enabled = false;
             Confiture.GetComponent<Confiture_Mov>().enabled = true;
             Confiture.GetComponent<PlayerInput>().enabled = true;
             Tartine.GetComponent<PlayerInput>().enabled = false;
