@@ -5,13 +5,13 @@ using UnityEngine;
 public class bullet : MonoBehaviour
 {
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
     bool hasHit;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();    
+        
     }
 
     // Update is called once per frame
@@ -26,6 +26,7 @@ public class bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         hasHit = true;
-        rb.velocity = Vector2.zero;
+        rb.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        rb.GetComponent<Rigidbody2D>().gravityScale = 3;
     }
 }

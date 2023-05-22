@@ -13,6 +13,7 @@ public class Lanc_Confiture : MonoBehaviour
     public int numberOfPoints;
     public float spaceBetweenUs;
     Vector2 direction;
+    public bool apparitionPoint = false;
 
 
     private Rigidbody2D rb2d;
@@ -31,20 +32,25 @@ public class Lanc_Confiture : MonoBehaviour
         Follow = Confiture.GetComponent<Follow>();
 
         points = new GameObject[numberOfPoints];
-        for(int i = 0; i < numberOfPoints; i++)
-        {
-            points[i] = Instantiate(point, shotPoint.position, Quaternion.identity);
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPick == true)
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            PickedUp();
+            PickUp();
+            Confiture.GetComponent<Rigidbody2D>().gravityScale = 1;
+            Follow.enabled = false;
+            gameObject.GetComponentInParent<Rigidbody2D>().velocity = Vector2.zero;
+            gameObject.GetComponentInParent<Player_Commande>().enabled = false;
+            for (int i = 0; i < numberOfPoints; i++)
+            {
+                points[i] = Instantiate(point, shotPoint.position, Quaternion.identity);
+            }
+            ApparitionPont();
         }
-
 
         Vector2 bowPosition = transform.position;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -56,45 +62,49 @@ public class Lanc_Confiture : MonoBehaviour
             Shoot();
         }
 
-        for (int i = 0; i < numberOfPoints; i++)
+        if (apparitionPoint == true)
         {
-            points[i].transform.position = PointPosition(i * spaceBetweenUs);
+            for (int i = 0; i < numberOfPoints; i++)
+            {
+                points[i].transform.position = PointPosition(i * spaceBetweenUs);
+            }
         }
     }
 
-    void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            PickUp();
-            Follow.enabled = false;
-        }
+    //void FixedUpdate()
+    //{
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.05f, GrabLayer);
+    //    isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.05f, GrabLayer);
 
-        if (isGrounded)
-        {
-            //Follow.enabled = true;
-        }
-    }
-
-    void PickedUp()
-    {
-        transform.position = grabCheck.transform.position;
-    }
+    //    if (isGrounded)
+    //    {
+    //        //Follow.enabled = true;
+    //    }
+    //}
 
     void PickUp()
     {
-        isPick = true;
+        isPick = !isPick;
     }
 
     void Shoot()
     {
         isPick = false;
+        Confiture.GetComponent<bullet>().enabled = true;
         //GameObject newArrow = Instantiate(Confiture, shotPoint.position, shotPoint.rotation);
         Confiture.GetComponent<Rigidbody2D>().velocity = transform.right * launchForce;
+        gameObject.GetComponentInParent<Player_Commande>().enabled = true;
+        apparitionPoint = false;
+        for (int i = 0; i < numberOfPoints; i++)
+        {
+            Destroy(points[i]);
+        }
     }
 
+    void ApparitionPont()
+    {
+        apparitionPoint = true;
+    }
     Vector2 PointPosition(float t)
     {
         Vector2 position = (Vector2)shotPoint.position + (direction.normalized * launchForce * t) + 0.5f * Physics2D.gravity * (t*t);

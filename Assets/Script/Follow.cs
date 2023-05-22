@@ -49,7 +49,6 @@ public class Follow : MonoBehaviour
 
         if (distance > 0.3f)
         {
-            Debug.Log("avance");
             transform.Translate(direction * followSpeed * Time.deltaTime);
         }
     }
