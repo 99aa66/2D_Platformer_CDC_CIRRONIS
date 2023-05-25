@@ -5,7 +5,7 @@ using UnityEngine;
 public class bullet : MonoBehaviour
 {
 
-    private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
     bool hasHit;
 
     // Start is called before the first frame update

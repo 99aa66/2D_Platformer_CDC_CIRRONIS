@@ -29,12 +29,12 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""e445dd47-c9e7-4b19-8c1b-7ef4a412b162"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Jump"",
@@ -49,6 +49,24 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
                     ""name"": ""Switch"",
                     ""type"": ""Button"",
                     ""id"": ""22fe0bc4-fdc2-4c1a-81c6-b38db81c6171"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa5b07fa-2b26-464c-90ca-0cdb7f797c95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""345f4eca-3f05-49c2-9c70-9d896c98ec29"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -147,7 +165,7 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""310fad8c-8b8d-4b39-845b-b0fc64740a67"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -165,6 +183,50 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
                     ""action"": ""Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd7e1f26-7a2a-4db1-b41f-8e1e3ba9e77e"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c748234e-57e2-4d11-9104-1fdcbc55d200"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c863e69-4240-45ab-90fc-0b08910f04cc"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86b13f25-db5a-44d9-9b85-ba759e1df416"",
+                    ""path"": ""<Keyboard>/#(G)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -174,12 +236,12 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""b16f4609-4613-460b-afea-6488820db3f4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Jump"",
@@ -292,7 +354,7 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5b2413db-43af-43d9-9ad6-56a4734735ac"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -321,6 +383,8 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
         m_Tartine_Move = m_Tartine.FindAction("Move", throwIfNotFound: true);
         m_Tartine_Jump = m_Tartine.FindAction("Jump", throwIfNotFound: true);
         m_Tartine_Switch = m_Tartine.FindAction("Switch", throwIfNotFound: true);
+        m_Tartine_Throw = m_Tartine.FindAction("Throw", throwIfNotFound: true);
+        m_Tartine_PickUp = m_Tartine.FindAction("PickUp", throwIfNotFound: true);
         // Confiture
         m_Confiture = asset.FindActionMap("Confiture", throwIfNotFound: true);
         m_Confiture_Move = m_Confiture.FindAction("Move", throwIfNotFound: true);
@@ -388,6 +452,8 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
     private readonly InputAction m_Tartine_Move;
     private readonly InputAction m_Tartine_Jump;
     private readonly InputAction m_Tartine_Switch;
+    private readonly InputAction m_Tartine_Throw;
+    private readonly InputAction m_Tartine_PickUp;
     public struct TartineActions
     {
         private @Player_Move m_Wrapper;
@@ -395,6 +461,8 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Tartine_Move;
         public InputAction @Jump => m_Wrapper.m_Tartine_Jump;
         public InputAction @Switch => m_Wrapper.m_Tartine_Switch;
+        public InputAction @Throw => m_Wrapper.m_Tartine_Throw;
+        public InputAction @PickUp => m_Wrapper.m_Tartine_PickUp;
         public InputActionMap Get() { return m_Wrapper.m_Tartine; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -413,6 +481,12 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
                 @Switch.started -= m_Wrapper.m_TartineActionsCallbackInterface.OnSwitch;
                 @Switch.performed -= m_Wrapper.m_TartineActionsCallbackInterface.OnSwitch;
                 @Switch.canceled -= m_Wrapper.m_TartineActionsCallbackInterface.OnSwitch;
+                @Throw.started -= m_Wrapper.m_TartineActionsCallbackInterface.OnThrow;
+                @Throw.performed -= m_Wrapper.m_TartineActionsCallbackInterface.OnThrow;
+                @Throw.canceled -= m_Wrapper.m_TartineActionsCallbackInterface.OnThrow;
+                @PickUp.started -= m_Wrapper.m_TartineActionsCallbackInterface.OnPickUp;
+                @PickUp.performed -= m_Wrapper.m_TartineActionsCallbackInterface.OnPickUp;
+                @PickUp.canceled -= m_Wrapper.m_TartineActionsCallbackInterface.OnPickUp;
             }
             m_Wrapper.m_TartineActionsCallbackInterface = instance;
             if (instance != null)
@@ -426,6 +500,12 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
                 @Switch.started += instance.OnSwitch;
                 @Switch.performed += instance.OnSwitch;
                 @Switch.canceled += instance.OnSwitch;
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
+                @PickUp.started += instance.OnPickUp;
+                @PickUp.performed += instance.OnPickUp;
+                @PickUp.canceled += instance.OnPickUp;
             }
         }
     }
@@ -484,6 +564,8 @@ public partial class @Player_Move : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
+        void OnPickUp(InputAction.CallbackContext context);
     }
     public interface IConfitureActions
     {
