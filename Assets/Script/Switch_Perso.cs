@@ -11,7 +11,7 @@ public class Switch_Perso : MonoBehaviour
     [SerializeField] private GameObject FlecheConfi;
     [SerializeField] private Rigidbody2D rb;
 
-    [SerializeField] private Camera MainCamera;
+    [SerializeField] private GameObject MainCamera;
 
     private void Start()
     {

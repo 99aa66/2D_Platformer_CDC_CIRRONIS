@@ -20,6 +20,8 @@ public class Enemy_Health : MonoBehaviour
     //The current amount after receiving damage the enemy has
     [SerializeField] public int currentHealth = 0;
 
+    public CameraShake Cs;
+
     private void Start()
     {
         //Sets the enemy to the max amount of health when the scene loads
@@ -33,7 +35,9 @@ public class Enemy_Health : MonoBehaviour
         {
             //First sets hit to true
             hit = true;
-            
+
+            StartCoroutine(Cs.Shake());
+
             currentHealth -= amount;
             //If currentHealthPoints is below zero, player is dead, and then we handle all the logic to manage the dead state
             if (currentHealth <= 0)

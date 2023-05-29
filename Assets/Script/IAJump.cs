@@ -21,8 +21,11 @@ public class IAJump: MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] Vector2 boxSize;
     private bool isOnGround;
+
     private int damageOnCollision = 20;
     [SerializeField] Player_Health health;
+
+    private Animator enemyAnim;
 
 
     [SerializeField] Vector2 lineOfSite;
@@ -34,6 +37,7 @@ public class IAJump: MonoBehaviour
     private Rigidbody2D RB;
     void Start()
     {
+        enemyAnim= GetComponent<Animator>();
         RB = GetComponent<Rigidbody2D>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
@@ -52,10 +56,9 @@ public class IAJump: MonoBehaviour
         }
         else if (isPlayerDetected && isOnGround)
         {
-            StartCoroutine(JumpAttack());
             FlipTowardsPlayer();
         }
-
+        AnimationController();
 
     }
     void Patrouille()
@@ -73,10 +76,9 @@ public class IAJump: MonoBehaviour
         }
         RB.velocity = new Vector2(moveSpeed * moveDirection, RB.velocity.y);
     }
-    private IEnumerator JumpAttack()
+    public void JumpAttack()
     {
         float distanceFromPlayer = Player.position.x - transform.position.x;
-        yield return new WaitForSeconds(1);
         if (isOnGround)
         {
             RB.AddForce(new Vector2(distanceFromPlayer, jumpHeight), ForceMode2D.Impulse); 
@@ -111,6 +113,12 @@ public class IAJump: MonoBehaviour
                 health.TakeDamage(damageOnCollision);
             }
         }
+    }
+
+    void AnimationController()
+    {
+        enemyAnim.SetBool("canSeePlayer", isPlayerDetected);
+        enemyAnim.SetBool("isGrounded", isOnGround);
     }
     private void OnDrawGizmosSelected()
     {

@@ -19,10 +19,14 @@ public class Lanc_Confiture : MonoBehaviour
 
     private Rigidbody2D rb2d;
     public Transform grabCheck;
+    public float grabRange;
     public LayerMask GrabLayer; // couche du sol
     public Transform groundCheck;
 
     public bool isPick;
+    private bool isPickable;
+    private bool isFly;
+
     private Follow Follow;
     [SerializeField] private bool isGrounded = false;
 
@@ -53,20 +57,15 @@ public class Lanc_Confiture : MonoBehaviour
         }
     }
 
-    //void FixedUpdate()
-    //{
+    void FixedUpdate()
+    {
 
-    //    isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.05f, GrabLayer);
-
-    //    if (isGrounded)
-    //    {
-    //        //Follow.enabled = true;
-    //    }
-    //}
+        isPickable = Physics2D.OverlapCircle(grabCheck.position, grabRange , GrabLayer);
+    }
 
     public void PickUp(InputAction.CallbackContext context)
     {
-        if (isPick == false)
+        if (isPick == false && isPickable )
         {
             isPick = !isPick;
             Confiture.GetComponent<Rigidbody2D>().gravityScale = 1;
@@ -78,7 +77,19 @@ public class Lanc_Confiture : MonoBehaviour
                 points[i] = Instantiate(point, shotPoint.position, Quaternion.identity);
             }
             ApparitionPont();
-        } 
+        }
+        else if (isPick == true)
+        {
+            isPick = false;
+            Confiture.GetComponent<Rigidbody2D>().gravityScale = 3;
+            Follow.enabled = true;
+            gameObject.GetComponentInParent<Player_Commande>().enabled = true;
+            apparitionPoint = false;
+            for (int i = 0; i < numberOfPoints; i++)
+            {
+                Destroy(points[i]);
+            }
+        }
     }
 
     public void Shoot(InputAction.CallbackContext context)

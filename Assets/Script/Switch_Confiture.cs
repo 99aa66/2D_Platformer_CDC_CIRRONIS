@@ -10,7 +10,7 @@ public class Switch_Confiture : MonoBehaviour
     [SerializeField] private GameObject FlecheTartine;
     [SerializeField] private GameObject FlecheConfi;
 
-    [SerializeField] private Camera MainCamera;
+    [SerializeField] private GameObject MainCamera;
 
     private Rigidbody2D rb;
     private void Start()
