@@ -9,7 +9,7 @@ public class Enemy_Health : MonoBehaviour
     private bool damageable = true;
     //The total number of health points the GameObject should have
     [SerializeField]
-    private int healthAmount = 100;
+    public int healthAmount = 100;
     //The max amount of time after receiving damage that the enemy can no longer receive damage; this is to help prevent the same melee attack dealing damage multiple times
     [SerializeField]
     private float invulnerabilityTime = .2f;
@@ -60,6 +60,13 @@ public class Enemy_Health : MonoBehaviour
     {
         //Wait in the amount of invulnerabilityTime, which by default is .2 seconds
         yield return new WaitForSeconds(invulnerabilityTime);
+        //Turn off the hit bool so the enemy can receive damage again
+        hit = false;
+    }
+    public IEnumerator ChangementBoss(float InvulnerabilityTime)
+    {
+        //Wait in the amount of invulnerabilityTime, which by default is .2 seconds
+        yield return new WaitForSeconds(InvulnerabilityTime);
         //Turn off the hit bool so the enemy can receive damage again
         hit = false;
     }
