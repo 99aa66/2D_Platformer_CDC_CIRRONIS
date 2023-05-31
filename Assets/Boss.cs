@@ -20,12 +20,23 @@ public class Boss : MonoBehaviour
     private int currentHealth;
     private int maxHealth = 100;
     private bool isInSecondPhase;
-
+    private Rigidbody2D rb;
+    private bool isGrounded;
+    [SerializeField] private float jumpHeight;
+    [SerializeField] private GameObject player;
     private float stateChangeDelay = 3f; // Délai entre les changements d'état
     private float stateTimer; // Timer pour gérer les transitions d'état
+    public Transform groundCheck; // objet qui vérifie si le joueur touche le sol
+    public LayerMask groundLayer; // couche du sol
+
+    [SerializeField] GameObject Shield;
+    [SerializeField] Transform ThrowSpawn;
+    [SerializeField] private bool Throw = false;
+    [SerializeField] private bool Jumping = false;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         // Initialiser l'état du boss
         currentState = BossState.intro;
         currentHealth = maxHealth;
@@ -55,22 +66,22 @@ public class Boss : MonoBehaviour
         {
             case BossState.Jump:
                 // Code pour l'état Jump
+                Jump();
                 break;
 
             case BossState.Dash:
                 // Code pour l'état Dash
-                break;
-
-            case BossState.MoveToDestination:
-                // Code pour l'état MoveToDestination
+                ActionFini();
                 break;
 
             case BossState.ThrowShield:
                 // Code pour l'état ThrowShield
+
+                ThrowShield();
                 break;
 
             case BossState.intro:
-
+                ActionFini();
                 break;
 
             case BossState.Idle:
@@ -87,23 +98,59 @@ public class Boss : MonoBehaviour
 
     public void SetDestination(Transform newDestination)
     {
+        actionFini = false;
         // Définir une nouvelle destination pour le déplacement du boss
         destination = newDestination;
     }
 
     public void ThrowShield()
     {
+        actionFini = false;
         // Code pour lancer le bouclier
+        if (Throw == false)
+        {
+            Instantiate(Shield,ThrowSpawn.position,Quaternion.identity);
+            Throw = true;
+        }
+        ActionFini();
     }
 
     public void Jump()
     {
-        // Code pour lancer le bouclier
+        actionFini = false;
+        if (Jumping == false)
+        {
+            Jumping = true;
+            Vector2 direction = player.transform.position - transform.position;
+
+
+            if (isGrounded)
+            {
+                rb.AddForce(new Vector2(direction.x, jumpHeight), ForceMode2D.Impulse);
+            }
+
+        }
+
+        ActionFini();
+
     }
 
     public void FacePlayer()
     {
 
+    }
+
+    public void ActionFini()
+    {
+        StartCoroutine(Idle());
+    }
+
+
+    public IEnumerator Idle()
+    {
+        yield return new WaitForSeconds(3);
+        actionFini = true;
+        
     }
 
 
@@ -123,6 +170,8 @@ public class Boss : MonoBehaviour
             {
             // Changer l'état du boss
                 currentState = newState;
+                Throw = false;
+                Jumping = false;
             }
             else if (newState == currentState)
             {
@@ -132,5 +181,11 @@ public class Boss : MonoBehaviour
         }
 
     }
+    private void FixedUpdate()
+    {
+        // vérifie si le joueur touche le sol
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
 
 }
