@@ -26,6 +26,7 @@ public class MeleeWeapon : MonoBehaviour
 
     private Player_Commande character;
     private Rigidbody2D rb;
+    public Animator anim;
 
 
     private Vector2 direction;
@@ -66,6 +67,10 @@ public class MeleeWeapon : MonoBehaviour
                 rb.AddForce(direction * defaultForce);
             }
         }
+        if(downwardStrike == true)
+        {
+            anim.SetBool("Atk_Bas", true);
+        }
     }
 
     private void Melee()
@@ -89,7 +94,7 @@ public class MeleeWeapon : MonoBehaviour
 
         if (HitEnnemiBas && Input.GetAxis("Vertical") < 0 && !character.isGrounded)
         {
-
+           
             direction = Vector2.up;
             downwardStrike = true;
             
@@ -122,34 +127,35 @@ public class MeleeWeapon : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetAxis("Vertical") > 0 && !character.isGrounded)
-        {
-            direction = Vector2.down;
+        //else if (Input.GetAxis("Vertical") > 0 && !character.isGrounded)
+        //{
+        //    direction = Vector2.down;
 
             
 
-            Collider2D[] HitEnnemi = Physics2D.OverlapCircleAll(Attaque_Haut.position, Attaque_Range, EnemyLayers);
+        //    Collider2D[] HitEnnemi = Physics2D.OverlapCircleAll(Attaque_Haut.position, Attaque_Range, EnemyLayers);
 
-            foreach (Collider2D Ennemi in HitEnnemi)
-            {
-                Debug.Log(HitEnnemi);
-                Ennemi.GetComponent<Enemy_Health>();
+        //    foreach (Collider2D Ennemi in HitEnnemi)
+        //    {
+        //        Debug.Log(HitEnnemi);
+        //        Ennemi.GetComponent<Enemy_Health>();
 
-                if (Ennemi.GetComponent<Enemy_Health>())
-                {
-                    if (collided == false && HitEnnemiHaut)
-                    {
-                        collided = true;
-                    }
-                    Ennemi.GetComponent<Enemy_Health>().Damage(damageAmount);
-                    Debug.Log("Hit " + Ennemi.name);
-                }
-            }
-        }
+        //        if (Ennemi.GetComponent<Enemy_Health>())
+        //        {
+        //            if (collided == false && HitEnnemiHaut)
+        //            {
+        //                collided = true;
+        //            }
+        //            Ennemi.GetComponent<Enemy_Health>().Damage(damageAmount);
+        //            Debug.Log("Hit " + Ennemi.name);
+        //        }
+        //    }
+        //}
 
 
-        else if ((Input.GetAxis("Vertical") <= 0 && character.isGrounded) || Input.GetAxis("Vertical") == 0)
+         if ((Input.GetAxis("Vertical") <= 0 && character.isGrounded)/* || Input.GetAxis("Vertical") == 0*/)
         {
+            anim.SetBool("Atk_Cot", true);
             if (transform.localScale.x < 0) 
             {
                 direction = Vector2.right;
@@ -186,7 +192,10 @@ public class MeleeWeapon : MonoBehaviour
     
     private IEnumerator NoLongerColliding()
     {
+        
         yield return new WaitForSeconds(movementTime);
+        anim.SetBool("Atk_Cot", false);
+        anim.SetBool("Atk_Bas", false);
         Debug.Log("Strop");
         collided = false;
 

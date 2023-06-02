@@ -17,11 +17,52 @@ public class Player_Health : MonoBehaviour
     [SerializeField] Transform playerSpawn;
     public HealthBar HealthBar;
 
+    private float Speed;
+    private bool RestoreTime;
+
     public void Start()
     {
+        RestoreTime = false;
         // le joueur commence avec toute sa vie
         currentHealth = maxHealth;
         HealthBar.SetMaxHealth(maxHealth);
+    }
+
+    private void Update()
+    {
+        if (RestoreTime)
+        {
+            if(Time.deltaTime < 1f) 
+            {
+                Time.timeScale += Time.deltaTime*Speed ;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                RestoreTime = false;
+            }
+        }
+    }
+
+    public void StopTime(float ChangeTime,int RestoreSpeed, float Delay)
+    {
+        Speed = RestoreSpeed;
+        if (Delay > 0)
+        {
+            StopCoroutine(StartTimeAgain(Delay));
+            StartCoroutine(StartTimeAgain(Delay));
+        }
+        else
+        {
+            RestoreTime = true;
+        }
+        Time.timeScale = ChangeTime;
+    }
+
+    IEnumerator StartTimeAgain(float amt)
+    {
+        RestoreTime= true;
+        yield return new WaitForSecondsRealtime(amt);
     }
     public void HealPlayer(int amount)
     {
@@ -41,6 +82,7 @@ public class Player_Health : MonoBehaviour
     {
         if (!isInvincible)
         {
+            //StopTime(0.05f, 10, 0.1f);
             currentHealth -= damage;  
             HealthBar.SetHealth(currentHealth);
 

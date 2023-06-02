@@ -14,6 +14,7 @@ public class Confiture_Mov : MonoBehaviour
     public SpriteRenderer sr;
     private Rigidbody2D rb;
     public bool isGrounded = false;
+    public Animator anim;
 
     void Start()
     {
@@ -27,6 +28,13 @@ public class Confiture_Mov : MonoBehaviour
         // vérifie si le joueur touche le sol
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
+        if (isGrounded == false)
+        {
+
+            anim.SetBool("Jump", true);
+
+        }
+        else anim.SetBool("Jump", false);
         // déplacement horizontal
         rb.velocity = new Vector2(_input * moveSpeed, rb.velocity.y);
     }
@@ -34,6 +42,7 @@ public class Confiture_Mov : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         _input = context.ReadValue<float>();
+        anim.SetFloat("speed",Mathf.Abs(_input));
         // Turn
         if (_input != 0)
         {
@@ -54,6 +63,8 @@ public class Confiture_Mov : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
+
+        
         // saut
         if (isGrounded)
         {

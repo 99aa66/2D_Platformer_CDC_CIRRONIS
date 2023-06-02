@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Menu_Marion/main_menu.unity
+    guid: add6e2f3fa3c4ea48b2a53b834fefcb6
+  - enabled: 1
     path: Assets/Scenes/Test_level.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/BossFight.unity
+    guid: 6f77675f79785b341a6d82fd2256d81c
   m_configObjects: {}
