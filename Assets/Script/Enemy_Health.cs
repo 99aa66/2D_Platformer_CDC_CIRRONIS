@@ -6,7 +6,7 @@ public class Enemy_Health : MonoBehaviour
 {
     //Determines if this GameObject should receive damage or not
     [SerializeField]
-    private bool damageable = true;
+    public bool damageable = true;
     //The total number of health points the GameObject should have
     [SerializeField]
     public int healthAmount = 100;

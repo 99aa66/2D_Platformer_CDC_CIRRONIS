@@ -32,5 +32,6 @@ public class Shield : MonoBehaviour
             collision.gameObject.GetComponent<Player_Health>().TakeDamage(20);
             Destroy(gameObject);
         }
+        else Destroy(gameObject);
     }
 }

@@ -8,7 +8,7 @@ public class BossStateChange : MonoBehaviour
     private Enemy_Health EH;
     private void Start()
     {
-        EH = GetComponent<Enemy_Health>();
+        EH = GetComponentInParent<Enemy_Health>();
     }
     // Update is called once per frame
     void Update()
