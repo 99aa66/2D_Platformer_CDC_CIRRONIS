@@ -20,7 +20,7 @@ public class Collision_Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Player_Health>().TakeDamage(10);
+            collision.gameObject.GetComponent<Player_Health_Boss>().TakeDamage(10);
         }
     }
 }

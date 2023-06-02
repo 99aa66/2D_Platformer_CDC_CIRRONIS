@@ -18,7 +18,7 @@ public class Boss : MonoBehaviour
 
     private bool isInSecondPhase;
     private Rigidbody2D rb;
-    private bool isGrounded;
+    public bool isGrounded;
     [SerializeField] private float jumpHeight;
     [SerializeField] private GameObject player;
     private float stateChangeDelay = 2f; // Délai entre les changements d'état
@@ -142,7 +142,8 @@ public class Boss : MonoBehaviour
 
             if (isGrounded)
             {
-                rb.AddForce(new Vector2(direction.x, jumpHeight), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(direction.x * 40, jumpHeight), ForceMode2D.Impulse);
+
             }
             Jumping = true;
 
@@ -161,13 +162,15 @@ public class Boss : MonoBehaviour
         {
 
             transform.parent.localScale = new Vector2(-0.6263232f, 0.6172416f);
-            sr.flipX = true;
+            //sr.flipX = true;
+            
             //transform.Rotate(0f, 180f, 0f);
         }
         else
         {
-            sr.flipX = false;
+            //sr.flipX = false;
             transform.parent.localScale = new Vector2(0.6263232f, 0.6172416f);
+            
             //transform.Rotate(0f, 0f, 0f);
 
         }

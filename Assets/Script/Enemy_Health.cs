@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
+    public int maxHealth = 1000;
     //Determines if this GameObject should receive damage or not
     [SerializeField]
     public bool damageable = true;
@@ -20,12 +21,17 @@ public class Enemy_Health : MonoBehaviour
     //The current amount after receiving damage the enemy has
     [SerializeField] public int currentHealth = 0;
 
+    [SerializeField] GameObject EcranFin;
+
+    public HealthBar HealthBar;
+
     public CameraShake Cs;
 
     private void Start()
     {
         //Sets the enemy to the max amount of health when the scene loads
         currentHealth = healthAmount;
+        HealthBar.SetMaxHealth(maxHealth);
     }
 
     public void Damage(int amount)
@@ -35,17 +41,27 @@ public class Enemy_Health : MonoBehaviour
         {
             //First sets hit to true
             hit = true;
-
             StartCoroutine(Cs.Shake());
 
             currentHealth -= amount;
+            HealthBar.SetHealth(currentHealth);
+
             //If currentHealthPoints is below zero, player is dead, and then we handle all the logic to manage the dead state
             if (currentHealth <= 0)
             {
                 //Caps currentHealth to 0 for cleaner code
                 currentHealth = 0;
                 //Removes GameObject from the scene; this should probably play a dying animation in a method that would handle all the other death logic, but for the test it just disables it from the scene
-                gameObject.SetActive(false);
+                if (gameObject.CompareTag("Boss") == true)
+                {
+                    EcranFin.SetActive(true);
+                    Debug.Log("vv");
+                }
+                else
+                {
+                    gameObject.SetActive(false);
+
+                }
             }
             else
             {

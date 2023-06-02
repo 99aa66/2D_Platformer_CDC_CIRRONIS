@@ -81,7 +81,7 @@ public class IAJump: MonoBehaviour
         float distanceFromPlayer = Player.position.x - transform.position.x;
         if (isOnGround)
         {
-            RB.AddForce(new Vector2(distanceFromPlayer, jumpHeight), ForceMode2D.Impulse); 
+            RB.AddForce(new Vector2(distanceFromPlayer * 10, jumpHeight), ForceMode2D.Impulse); 
         }
     }
     void FlipTowardsPlayer()

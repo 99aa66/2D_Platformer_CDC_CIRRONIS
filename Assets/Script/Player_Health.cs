@@ -26,6 +26,7 @@ public class Player_Health : MonoBehaviour
         // le joueur commence avec toute sa vie
         currentHealth = maxHealth;
         HealthBar.SetMaxHealth(maxHealth);
+        HealthBar.SetHealth(currentHealth);
     }
 
     private void Update()
@@ -76,7 +77,6 @@ public class Player_Health : MonoBehaviour
         }
 
         HealthBar.SetHealth(currentHealth); // maj barre de vie
-
     }
     public void TakeDamage(int damage)
     {

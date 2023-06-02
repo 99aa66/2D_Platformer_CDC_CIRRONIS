@@ -29,7 +29,7 @@ public class Shield : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") == true)
         {
-            collision.gameObject.GetComponent<Player_Health>().TakeDamage(20);
+            collision.gameObject.GetComponent<Player_Health_Boss>().TakeDamage(20);
             Destroy(gameObject);
         }
         else Destroy(gameObject);

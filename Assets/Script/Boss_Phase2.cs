@@ -36,6 +36,11 @@ public class Boss_Phase2 : MonoBehaviour
     private void Start()
     {
         anim.SetBool("Phase2", true);
+        //sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        rb = GetComponentInParent<Rigidbody2D>();
+        //rb = GetComponentInParent<Rigidbody2D>();
+
         // Initialiser l'état du boss
         currentState = BossState.intro;
         isInSecondPhase = false;
@@ -134,7 +139,7 @@ public class Boss_Phase2 : MonoBehaviour
 
             if (isGrounded)
             {
-                rb.AddForce(new Vector2(direction.x, jumpHeight), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(direction.x * 40, jumpHeight), ForceMode2D.Impulse);
             }
             Jumping = true;
 
