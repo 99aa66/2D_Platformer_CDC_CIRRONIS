@@ -15,6 +15,7 @@ public class Player_Health : MonoBehaviour
     [SerializeField] float invincibilityFlashDelay = 0.2f;
     [SerializeField] bool isInvincible = false; //perso pas invincible par défaut
     [SerializeField] Transform playerSpawn;
+    [SerializeField] GameObject Confiture;
     public HealthBar HealthBar;
 
     private float Speed;
@@ -114,6 +115,8 @@ public class Player_Health : MonoBehaviour
     public void Die()
     {
         transform.position = playerSpawn.position;
+        Confiture.transform.position = playerSpawn.position;
         currentHealth = 100;
+        HealthBar.SetHealth(currentHealth);
     }
 }

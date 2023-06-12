@@ -32,6 +32,9 @@ public class Shield : MonoBehaviour
             collision.gameObject.GetComponent<Player_Health_Boss>().TakeDamage(20);
             Destroy(gameObject);
         }
-        else Destroy(gameObject);
+        else if (collision.gameObject.CompareTag("Boss") != true) 
+        { 
+        Destroy(gameObject);
+        }
     }
 }

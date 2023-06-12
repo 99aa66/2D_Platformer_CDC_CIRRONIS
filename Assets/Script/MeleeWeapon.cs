@@ -179,15 +179,15 @@ public class MeleeWeapon : MonoBehaviour
                     {
                         collided = true;
                     }
-                    if (transform.position.x > Ennemi.transform.position.x)
-                    {
+                    //if (transform.position.x > Ennemi.transform.position.x)
+                    //{
 
-                        Ennemi.GetComponent<Rigidbody2D>().velocity = (-Vector2.right * 200 * Time.deltaTime);
-                    }
-                    else
-                    {
-                        Ennemi.GetComponent<Rigidbody2D>().velocity = (Vector2.right * 200 * Time.deltaTime);
-                    }
+                    //    Ennemi.GetComponent<Rigidbody2D>().velocity = (-Vector2.right * 200 * Time.deltaTime);
+                    //}
+                    //else
+                    //{
+                    //    Ennemi.GetComponent<Rigidbody2D>().velocity = (Vector2.right * 200 * Time.deltaTime);
+                    //}
                     Ennemi.GetComponent<Enemy_Health>().Damage(damageAmount);
                     Debug.Log("Hit " + Ennemi.name);
                 }

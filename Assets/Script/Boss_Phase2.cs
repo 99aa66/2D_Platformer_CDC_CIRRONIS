@@ -80,7 +80,8 @@ public class Boss_Phase2 : MonoBehaviour
 
 
             case BossState.intro:
-                Intro();
+                GetComponentInParent<Enemy_Health>().damageable = false;
+                StartCoroutine(Intro());
                 break;
 
             case BossState.Idle:
@@ -103,11 +104,9 @@ public class Boss_Phase2 : MonoBehaviour
     }
     public IEnumerator Intro()
     {
-
-        GetComponentInParent<Enemy_Health>().damageable = false;
         yield return new WaitForSecondsRealtime(1);
-        Idle();
-        anim.SetBool("Idle", true);
+        StartCoroutine(Idle());
+        anim.SetBool("idle", true);
     }
 
     public IEnumerator Idle()
@@ -135,8 +134,7 @@ public class Boss_Phase2 : MonoBehaviour
         if (Jumping == false)
         {
             Vector2 direction = player.transform.position - transform.position;
-
-
+ 
             if (isGrounded)
             {
                 rb.AddForce(new Vector2(direction.x * 40, jumpHeight), ForceMode2D.Impulse);
